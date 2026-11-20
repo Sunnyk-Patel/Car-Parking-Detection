@@ -1,127 +1,110 @@
+# Car Parking Detection Using Python and OpenCV
 
-# Car Parking Detection System
+## Overview
 
-A computer vision-based parking space detection system built using Python and OpenCV. The application processes a parking lot video, identifies occupied and available parking spaces, and displays the available parking count in real time.
+This project detects available and occupied parking spaces from a parking lot video using Python and OpenCV.
+
+The application allows the user to mark individual parking spaces on a reference image. These coordinates are saved and then used to check the occupancy of each space while processing the video.
 
 ## Features
 
-- Detects occupied and available parking spaces.
-- Displays free parking spaces using green rectangles.
-- Displays occupied parking spaces using red rectangles.
-- Shows the number of available parking spaces.
-- Allows users to select and remove parking spaces manually.
-- Saves parking-space coordinates for future use.
-- Automatically restarts the video when it reaches the end.
+- Manual selection of parking spaces.
+- Removal of incorrectly selected spaces.
+- Saving and loading parking-space coordinates.
+- Detection of occupied and available parking spaces.
+- Visual representation using green and red rectangles.
+- Display of the available parking-space count.
 
-## Technologies Used
+## Technologies
 
 - Python
 - OpenCV
 - NumPy
 - Pickle
 
-## Project Structure
+## How the Project Works
 
-```text
-Car-Parking-Detection/
-├── assets/
-│   ├── carPark.mp4
-│   └── carParkImg.png
-├── data/
-│   └── CarParkPos
-├── main.py
-├── CarParkingPicker.py
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
+The parking video is processed frame by frame. Each frame is converted into grayscale and passed through Gaussian blur and adaptive thresholding. Median filtering and dilation are then applied.
+
+The processed image is divided into the previously selected parking regions. The number of non-zero pixels in each region is calculated and compared with a threshold to determine whether the space is occupied.
 
 ## Installation
 
-1. Clone the repository:
+Clone the repository:
 
 ```bash
 git clone https://github.com/Sunnyk-Patel/Car-Parking-Detection.git
-```
-
-2. Navigate to the project directory:
-
-```bash
 cd Car-Parking-Detection
 ```
 
-3. Create a virtual environment:
+Create and activate a virtual environment:
 
 ```bash
 python3 -m venv venv
-```
-
-4. Activate the environment on macOS/Linux:
-
-```bash
 source venv/bin/activate
 ```
 
-On Windows:
+For Windows, use:
 
 ```bash
 venv\Scripts\activate
 ```
 
-5. Install the required libraries:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## How to Run
+## Running the Project
 
-### Step 1: Select Parking Spaces
-
-Run the parking-space picker:
+First, open the parking-space selection tool:
 
 ```bash
 python CarParkingPicker.py
 ```
 
-- Left-click to add a parking space.
-- Right-click to remove a parking space.
-- Press Q to exit.
+Controls:
+- Left-click: Add a parking space.
+- Right-click: Remove a parking space.
+- Q: Exit.
 
-The coordinates are saved automatically in `data/CarParkPos`.
+The selected coordinates are saved in `data/CarParkPos`.
 
-### Step 2: Run Car Parking Detection
-
-Run the main application:
+Start the detection application:
 
 ```bash
 python main.py
 ```
 
-Press Q to close the detection window.
+Press Q to close the application.
 
-## How It Works
+## Project Structure
 
-1. OpenCV reads frames from the parking lot video.
-2. Each frame is converted into grayscale.
-3. Gaussian blur and adaptive thresholding are applied.
-4. Image processing operations help identify occupied regions.
-5. Each selected parking space is checked using its non-zero pixel count.
-6. The application marks spaces as available or occupied and updates the count.
+```text
+Car-Parking-Detection/
+├── assets/
+├── data/
+├── screenshots/
+├── main.py
+├── CarParkingPicker.py
+├── requirements.txt
+└── README.md
+```
 
-## Requirements
+## Current Limitations
 
-- Python 3
-- OpenCV
-- NumPy
-- A compatible desktop environment supporting OpenCV display windows.
+- The detection threshold may need adjustment under different lighting conditions.
+- The current implementation uses image-processing techniques rather than a trained vehicle-detection model.
+- Parking-space coordinates are configured manually for the reference parking lot.
+- Detection performance depends on the camera angle and video quality.
 
 ## Future Improvements
 
-- Improve detection accuracy under different lighting conditions.
-- Add vehicle detection using deep learning.
-- Develop a graphical dashboard for parking management.
-- Support live camera feeds.
+- Test the application with different parking lot videos.
+- Improve detection under changing lighting conditions.
+- Add support for live camera input.
+- Explore deep-learning-based vehicle detection.
 
 ## Author
 
